@@ -1,0 +1,51 @@
+#
+#
+# Copyright 2016 The Symphony Software Foundation
+#
+# Licensed to The Symphony Software Foundation (SSF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+# cache:
+#   directories:
+#   - $HOME/.m2
+
+language: java
+script:
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then export MVN_PROFILES="sonar,versioneye"; else export MVN_PROFILES="sonar"; fi
+  - mvn clean package -P$MVN_PROFILES
+jdk:
+  - oraclejdk8
+
+env:
+  global:
+   # Need to "gem install travis" first
+   # Generated using command "travis encrypt COVERITY_SCAN_TOKEN=blah"
+   - secure: "fE/+IU9evz5GoS93W3iIqRfOfGazYElG+ofL8wLBDurrUbyzZNdT368WJo8YAuxB0LfEyntAvYigKjtgNdSqEc/yje6Jy0sTIHNxyQT0rT85yvOuCuiDkRwu0HUM/Gb/f8WcjdpynOu9mHPKw/mTF7Fm0wId4KHl2TjT5vmRMRDI36gZrDnofG4qOAmg3BSCKfLgk+7bRWy7EApwI1l2lN17gFfzMiAPi24pqJur+NgeWMM1IJvroj3t0qAKrchTPOhBQyWnTQCLERQOTP2XLKbV10Ni0MFym/r2W55MihC/cd0djTc+9cFghiW5g2pfQznajp07hS5Ibokih1dFwMlYnKJzrEKZf5Y9RDwrXgemhnPcxWTLt+rZETFwHVvMn/LL/h7zEQgbQEIBIXZ7ArbxL/LSljbyYY51RY1td+lZgjrrT2qgcPhwjwLE62K8FZTiSZ/6O+mwmIIx+C8bz1xAeqzC95GAUYcBeaqCXEOKRqBGpuhgJUMgjvgbmCy9MOtuPAu3H803A/pQPrVi0caeNYXP3JGgh36g+P6uvZr15KuM9+sbFCUgsipeS3VR2+P1T3LB1xDXPPPs9YOsbIap/3XcSl1o7xlTc5lptpwSwdpL3cpSwV+M6Q4qdxI79ZHEGkQznWm1rHUQKzz3+POlbH76Dlma6bierxAXAy0="
+   # Generated using command "travis encrypt SONAR_LOGIN=blah"
+   - secure: "WdxH3NpGCQ8oIUnr49KFDX1bK3T1ZPcRrgcjo13ekPjskN3AvjkviqX045iPzxw0He9OtbwrPIn27xYddGtb/Q4dAFV5zH5vdCMBuCToicJz8d1svXXjdKoWnrQLGVQ0hTLrWMQff7goN10LRzjuRQQj6u3K1mc21IlWaE3Rn0DNthebqNmPjIXvvCiAwNvaa8EVUiHzz02/wynpJPajeD/Uf2NxjQ4auIqrA5a7jVvJtYv2mJA/HhQBzanJdDxyXJsxlf7DPViBMWxmBpSpNlXiu3nNxkfCkJpiHcLmTIQTw8i8HwSmi9WnS2xyjFAt510HJpACufi5j58yXFRSIDeuxbwsn09LPFB4/L/Gx2laPSbsRe55jG1mQoD58wGTYPX5YusPyDTLM1Nw3rxbHdCd6cxrOkQ4FgotkasLqEa8HmhRu//PqB5M7MUkSLuP65yUHdHn4pdhKR+G9v1uDII5ZDyoidMjlRuL0Ty3PLJdQqyzvh2Wxwc7zECL0ZLeeYdBpAtZYw7S7nyMSituMYQDgsRmT3ISCNLQJor3vMwrtBXaxujS18cox+GsqedtH9hoUZm2Zwoq0MknsTmWOK8n+ey/EFg66tViI1Y24U3PfBT0ZHsviJRRqxpE2ULyVxJNXuesAkoFEsdAVDWjyqQ4E3PrNI8dYq9p2P/tWFQ="
+   # Generated using command "travis encrypt VERSIONEYE_API_KEY=blah"
+   - secure: "PQa140WousHjTIpK7gkUT0a1ewTkvZ4lj72ypqi5dZ34tib3JVpqpqGgu5IF7B1pgo43hhbOt33k8UdGTsGQdOc++b7MaVWGKQmCTNXozeo8XKJmDybWHewEebbkmQkImEvpQFBTB96VPhSwVin1h+cQr8dk2qVio4ljpPQhLGhtY2iukDjrwndkDNza8q/H4jRCcgqIExJqaM8bqh9hhMoxI7fFURRFasJx3/vuL4wWkC+rl5sWS1JK8msyjLr6CM7lwmMKeA5Di5iViO0k5NifOgAe6Kty0WGQZoTXY0QZUzHDfIxiUmARG5hOEj6/bbnJEo7ylOtkQMP2QRI2CV+4iHClkSmMXv7beQkTkhAu+9/5lILf+na81FFE5lbih3kqokdUM532jfY+Ltt6GofRWNw8A76qprDTjcpnOx22+YFStU0BqTHvCfokjJdDg4AdlzvqHx/YMhvlywVWqwzC8Pi6dqfrtnQdW+PBQN2ytdHAwCT9LwDONAQSg3G+5FJshir9Abz2JhH7QiD1YvU+br+2hJeMaR8M7pxzA1bvHEq08zKxyhKOrnJmznwSLXG/Avih99qNtUBCzgIpDUj3duX/Ml8xnYY42dPQUwtEFrpkxQSRxLunM91BTkMxwb0vX6G18TA93kwbKMvYLh6tIFtRC6niO1sz5j7L5S0="
+
+addons:
+  coverity_scan:
+    project:
+      name: "symphonyoss/roomdesk-bot"
+      description: "Build submitted via Travis CI"
+    notification_email: maoo@symphony.foundation
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -DskipTests=true compile"
+    branch_pattern: develop
